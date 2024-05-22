@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.github.msievers</groupId>
+    <artifactId>graalpy-weasyprint</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>graalpy-weasyprint</name>
+    <description>graalpy-weasyprint</description>
+    <properties>
+        <java.version>21</java.version>
+        <truffle.version>24.0.1</truffle.version>
+    </properties>
+    <dependencies>
+        <!-- The polyglot dependency is always required  -->
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>polyglot</artifactId>
+            <version>${truffle.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <!-- The GraalPy dependency -->
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>python</artifactId>
+            <version>${truffle.version}</version>
+            <scope>runtime</scope>
+            <type>pom</type>
+        </dependency>
+
+        <!-- The GraalPy Launcher. -->
+        <dependency>
+            <groupId>org.graalvm.python</groupId>
+            <artifactId>python-launcher</artifactId>
+            <version>${truffle.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <!-- Exclude all resources from src/main/resources which aren't needed at runtime -->
+                    <exclude>**/vfs/venv/include/**</exclude>
+                    <exclude>**/vfs/venv/**/site-packages/pip*/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>

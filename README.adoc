@@ -1,0 +1,56 @@
+= GraalPy weasyprint
+
+== Prerequisites
+
+=== Ubuntu
+
+[source,shell]
+----
+sudo apt install libpango-1.0-0 libharfbuzz0b libpangoft2-1.0-0 libffi-dev libjpeg-dev libopenjp2-7-dev
+----
+
+== Setup
+
+Create venv
+
+[source,shell]
+----
+./graalpy.sh -m venv src/main/resources/vfs/venv
+----
+
+Install wheel
+
+[source,shell]
+----
+VIRTUAL_ENV=src/main/resources/vfs/venv ./src/main/resources/vfs/venv/bin/graalpy.sh -m pip install wheel
+----
+
+Install weasyprint
+
+[source,shell]
+----
+VIRTUAL_ENV=src/main/resources/vfs/venv ./src/main/resources/vfs/venv/bin/graalpy.sh -m pip install weasyprint --no-build-isolation --no-cache-dir
+----
+
+== Error
+
+The execution aborts with the following error
+
+[source]
+----
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x000071c47883ad87, pid=16635, tid=16638
+#
+# JRE version: Java(TM) SE Runtime Environment Oracle GraalVM 21.0.3+7.1 (21.0.3+7) (build 21.0.3+7-LTS-jvmci-23.1-b37)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 21.0.3+7.1 (21.0.3+7-LTS-jvmci-23.1-b37, mixed mode, sharing, tiered, jvmci, jvmci compiler, compressed oops, compressed class ptrs, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [_cffi_backend.graalpy240-310-native-x86_64-linux.so+0x10d87]  _cdata_getslicearg+0x1c
+----
+
+* GraalVM 21.0.3
+* Truffle 24.0.1
+
+== Resources
+* https://stackoverflow.com/questions/34819221/why-is-python-setup-py-saying-invalid-command-bdist-wheel-on-travis-ci
